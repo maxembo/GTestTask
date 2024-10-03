@@ -18,7 +18,7 @@ namespace Bullets
 
         public void SetDirection(Vector3 direction) => _direction = direction;
 
-        public void SetScale(Vector3 localScale) => transform.localScale = localScale;
+        public void SetScale(Vector2 localScale) => transform.localScale = localScale;
 
         private void Move() => transform.Translate(_direction.normalized * (_speed * Time.deltaTime));
 
@@ -29,7 +29,7 @@ namespace Bullets
             var damageHits = Physics2D.OverlapCircleAll(_position, _radius);
 
             foreach (var hit in damageHits)
-                if (hit) Destroy(hit.gameObject);
+                if (hit) Destroy(gameObject);
         }
 
 

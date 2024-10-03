@@ -49,7 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  view: {fileID: 8296627428004328624}
+  _config: {fileID: 11400000, guid: eb094f98c9e8b644dbecfdbfa0960a85, type: 2}
+  _animator: {fileID: 8693683847624997413}
 --- !u!50 &476147027283447160
 Rigidbody2D:
   serializedVersion: 4
@@ -172,7 +173,6 @@ GameObject:
   - component: {fileID: 946762708627267827}
   - component: {fileID: 8693683847624997413}
   - component: {fileID: 2412777517060603037}
-  - component: {fileID: 8296627428004328624}
   m_Layer: 0
   m_Name: PlayerView
   m_TagString: Untagged
@@ -268,18 +268,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8296627428004328624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4624166291415970067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edefcdf2f3579304496e13ffad29d016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3266495225859521366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -365,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3319604187559884215, guid: bf16142a79cb06a4897fccc5e3c9bf23, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5304096530867471196, guid: bf16142a79cb06a4897fccc5e3c9bf23, type: 3}
       propertyPath: m_LocalPosition.x

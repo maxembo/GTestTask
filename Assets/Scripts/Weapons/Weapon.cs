@@ -1,14 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using Configs;
 using UnityEngine;
 
 namespace Weapons
 {
     public abstract class Weapon : MonoBehaviour
     {
-        [SerializeField] protected GameObject bulletPrefab;
-        [SerializeField] protected Transform spawnPoint;
-        [SerializeField, Range(0, 20)] protected float reload;
-        [SerializeField] protected Animator animator;
+        //[SerializeField] protected GameObject bulletPrefab;
+        //[SerializeField] protected Transform spawnPoint;
+        //[SerializeField, Range(0, 20)] protected float reload;
+        //[SerializeField] protected Animator animator;
+
+        [SerializeField] protected WeaponConfig config;
 
         protected const string Attack = "Attack";
         protected const int Second = 1000;
@@ -24,13 +26,30 @@ namespace Weapons
 
         protected abstract void Shoot();
 
-        protected abstract Task Recharge();
+        protected abstract void Recharge();
 
-        protected abstract Quaternion GetRotation();
+        protected Quaternion GetRotation()
+        {
+            var targetDirection = GetMousePosition() - (Vector2)transform.position;
 
-        protected abstract Vector3 GetScale();
+            angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+            return Quaternion.Euler(0f, 0f, angle);
+        }
 
-        protected bool CheckCursorPosition() { return angle is > 90 or < -90; }
+        protected Vector2 GetMousePosition()
+        {
+            Vector2 mousePosition = input.Gameplay.FireDirection.ReadValue<Vector2>();
+            Vector2 cameraScreenPoint = main.ScreenToWorldPoint(mousePosition);
+            return cameraScreenPoint;
+        }
+
+        protected Vector3 GetScale()
+        {
+            localScale.y = CheckCursorPosition() ? -1f : 1f;
+            return localScale;
+        }
+
+        protected bool CheckCursorPosition() => angle > 90 || angle < -90;
 
     }
 }

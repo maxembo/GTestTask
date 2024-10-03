@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4445774540514319815}
   - component: {fileID: 6588230997594731145}
-  - component: {fileID: 2871825276022262646}
   m_Layer: 0
   m_Name: ShotGunView
   m_TagString: Untagged
@@ -71,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -873224059
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1772703093, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -85,27 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2871825276022262646
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51192450128787662}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6d7e301efdb2e7b41bc7d2360fd392af, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &711275898053392160
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1969436436793345347}
   - component: {fileID: 8990721010129333386}
+  - component: {fileID: 6716968768717137142}
   m_Layer: 0
   m_Name: ShotGun
   m_TagString: Untagged
@@ -183,7 +162,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f381637dfcea66d459a2f09628eea21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3718946729275802350, guid: b9a814048d5ef574da1aa5593b95cef3, type: 3}
-  spawnPoint: {fileID: 4498337138006710614}
-  reload: 1
-  animator: {fileID: 2871825276022262646}
+  config: {fileID: 11400000, guid: 32c60c256ce9b2d4b980de544730c015, type: 2}
+--- !u!95 &6716968768717137142
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858920159447080482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d7e301efdb2e7b41bc7d2360fd392af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

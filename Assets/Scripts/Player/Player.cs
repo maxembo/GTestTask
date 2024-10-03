@@ -1,3 +1,4 @@
+using Configs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,35 +7,38 @@ namespace Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] public float speed;
-        [SerializeField] private PlayerView view;
+        [SerializeField] private PlayerConfig _config;
+        [SerializeField] private Animator _animator;
 
-        private Movement _movement;
-        private PlayerInput _input;
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
 
-        public Vector2 Direction => _direction;
-        public Rigidbody2D Rigidbody => _rigidbody;
-        public float Speed => speed;
+        private PlayerView _view;
+        private Movement _movement;
+        private PlayerInput _input;
+
+        private InputAction InputMove => _input.Gameplay.Move;
+
         private void Awake()
         {
             _input = new PlayerInput();
-            view.Initialize();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _movement = new Movement(this);
+            _view = new PlayerView(_animator);
+            _movement = new Movement(_config);
         }
+
+        private void Start() => _view.SetMovementType(MovementType.Idling);
 
         private void FixedUpdate()
         {
-            _movement.Move();
-            _movement.Flip();
+            _movement.Move(_rigidbody, _direction);
+            transform.rotation = _movement.GetRotation(_direction);
 
             UpdateMovementType();
         }
 
         private void UpdateMovementType()
-            => view.SetMovementType(_movement.IsInputZero() ? MovementType.Idling : MovementType.Moving);
+            => _view.SetMovementType(_movement.IsDirectionZero(_direction) ? MovementType.Idling : MovementType.Moving);
 
         private void OnMoveInput(InputAction.CallbackContext context)
             => _direction = context.ReadValue<Vector2>();
@@ -42,15 +46,15 @@ namespace Player
         private void OnEnable()
         {
             _input.Enable();
-            _input.Gameplay.Move.performed += OnMoveInput;
-            _input.Gameplay.Move.canceled += OnMoveInput;
+            InputMove.performed += OnMoveInput;
+            InputMove.canceled += OnMoveInput;
         }
 
         private void OnDisable()
         {
             _input.Disable();
-            _input.Gameplay.Move.performed -= OnMoveInput;
-            _input.Gameplay.Move.canceled -= OnMoveInput;
+            InputMove.performed -= OnMoveInput;
+            InputMove.canceled -= OnMoveInput;
         }
     }
 }

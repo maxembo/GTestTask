@@ -1,17 +1,22 @@
 ﻿using Bullets;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Weapons
 {
     public class Shotgun : Weapon
     {
+        private InputAction InputFire => input.Gameplay.Fire;
+
         private void Awake() => input = new PlayerInput();
+
 
         private void Start()
         {
             main = Camera.main;
-            currentSize = bulletPrefab.transform.localScale.y;
+            //currentSize = bulletPrefab.transform.localScale.y;
+            currentSize = config.ShotgunConfig.BulletPrefab.transform.localScale.y;
         }
 
         private void Update()
@@ -24,59 +29,47 @@ namespace Weapons
         {
             if (!canShoot) return;
 
-            animator.SetTrigger(Attack);
+            //animator.SetTrigger(Attack);
+            config.ShotgunConfig.Animator.SetTrigger(Attack);
             SpawnBullet();
         }
 
-        protected override async Task Recharge()
+        protected override async void Recharge()
         {
             canShoot = false;
-            await Task.Delay((int)(reload * Second));
+            //await Task.Delay((int)(reload * Second));
+            await Task.Delay((int)(config.ShotgunConfig.Reload * Second));
             canShoot = true;
         }
 
-        protected override Quaternion GetRotation()
-        {
-            var mousePosition = input.Gameplay.FireDirection.ReadValue<Vector2>();
-            var cameraScreenPoint = main.ScreenToWorldPoint(mousePosition);
-            var targetDirection = cameraScreenPoint - transform.position;
-
-            angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
-            return Quaternion.Euler(0f, 0f, angle);
-        }
-
-        protected override Vector3 GetScale()
-        {
-            localScale.y = CheckCursorPosition() ? -1f : 1f;
-
-            return localScale;
-        }
-
-        private async void SpawnBullet()
+        private void SpawnBullet()
         {
             for (int currentBullet = -1; currentBullet < 2; currentBullet++)
             {
-                Quaternion bulletRotation = spawnPoint.rotation * Quaternion.Euler(0f, 0f, 45f * currentBullet);
-                var bulletGameObject = Instantiate(bulletPrefab, spawnPoint.position, bulletRotation);
+                //var bulletGameObject = Instantiate(bulletPrefab, spawnPoint.position, GetBulletRotation(currentBullet));
+                var bulletGameObject = Instantiate(config.ShotgunConfig.BulletPrefab, config.ShotgunConfig.SpawnPoint.position, GetBulletRotation(currentBullet));
 
                 var bullet = bulletGameObject.GetComponent<Bullet>();
 
-                bullet.SetScale(new Vector3(1, CheckCursorPosition() ? -currentSize : currentSize, 1));
-                bullet.SetDirection(CheckCursorPosition() ? Vector3.down : Vector3.up);
+                bullet.SetScale(new Vector2(1, CheckCursorPosition() ? -currentSize : currentSize));
+                bullet.SetDirection(CheckCursorPosition() ? Vector2.down : Vector2.up);
             }
 
-            await Recharge();
+            Recharge();
         }
+
+        //private Quaternion GetBulletRotation(int currentBullet) => spawnPoint.rotation * Quaternion.Euler(0f, 0f, 45f * currentBullet);
+        private Quaternion GetBulletRotation(int currentBullet) => config.ShotgunConfig.SpawnPoint.rotation * Quaternion.Euler(0f, 0f, 45f * currentBullet);
 
         private void OnEnable()
         {
-            input.Gameplay.Fire.performed += _ => Shoot();
+            InputFire.performed += _ => Shoot();
             input.Enable();
         }
 
         private void OnDisable()
         {
-            input.Gameplay.Fire.performed -= _ => Shoot();
+            InputFire.performed -= _ => Shoot();
             input.Disable();
 
         }

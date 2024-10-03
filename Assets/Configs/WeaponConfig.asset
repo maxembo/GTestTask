@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce807e93cd4fed54fa3a351bc8cab338, type: 3}
+  m_Name: WeaponConfig
+  m_EditorClassIdentifier: 
+  gunConfig:
+    bulletPrefab: {fileID: 3718946729275802350, guid: 72eea87a7b63fd74d90167ee66c8ea48, type: 3}
+    spawnPoint: {fileID: 3319604187559884215, guid: bf16142a79cb06a4897fccc5e3c9bf23, type: 3}
+    reload: 0.5
+    animator: {fileID: 7603059998314214980, guid: bf16142a79cb06a4897fccc5e3c9bf23, type: 3}
+  shotgunConfig:
+    bulletPrefab: {fileID: 3718946729275802350, guid: b9a814048d5ef574da1aa5593b95cef3, type: 3}
+    spawnPoint: {fileID: 2858920159447080482, guid: 27433711477ea414785abb66370f2ed4, type: 3}
+    reload: 1
+    animator: {fileID: 6716968768717137142, guid: 27433711477ea414785abb66370f2ed4, type: 3}
